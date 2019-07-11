@@ -16,6 +16,28 @@
     mv -f apache-skywalking-apm-bin/agent ./agent
     rm -rf apache-skywalking-apm-bin
     ```
+* Add manually trace in code
+	* gradle
+	```gradle
+	implementation 'org.apache.skywalking:apm-toolkit-trace:6.2.0'
+	```
+	* Code: `@Trace`, `@TraceCrossThread`, `ActiveSpan`, `TraceContext`
+* Add logback trace id
+	* gradle
+	```gradle
+	implementation 'org.apache.skywalking:apm-toolkit-logback-1.x:6.2.0'
+	```
+	* logback.xml
+	```logback
+	<conversionRule conversionWord="tid" converterClass="org.apache.skywalking.apm.toolkit.log.logback.v1.x.LogbackPatternConverter"/>
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%clr([%tid]%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+	```
+* [Not Recommend]Enable spring annotation trace plugin
+    ```bash
+     mv agent/optional-plugins/apm-spring-annotation-plugin-6.2.0.jar agent/plugins/
+    ```
+	
 ## Enable agent
 For gradle as an example
 ```gradle

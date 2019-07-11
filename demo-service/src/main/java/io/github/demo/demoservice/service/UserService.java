@@ -5,6 +5,10 @@ import io.github.demo.demoservice.vo.User;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.apache.skywalking.apm.toolkit.trace.ActiveSpan;
+import org.apache.skywalking.apm.toolkit.trace.Trace;
+import org.apache.skywalking.apm.toolkit.trace.TraceCrossThread;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
@@ -49,6 +53,7 @@ public class UserService {
     threadPoolTaskExecutor.execute(new CustomerCallable(userRepository, users));
   }
 
+  @TraceCrossThread
   public static class CustomerCallable implements Runnable {
     private UserRepository userRepository;
     private List<User> users;
@@ -63,6 +68,7 @@ public class UserService {
       List<User> allById =
           userRepository.findAllById(users.stream().map(User::getId).collect(Collectors.toSet()));
       if (allById.size() < users.size()) {
+        ActiveSpan.error();
         throw new IllegalArgumentException("Illegal input for update batch");
       }
       userRepository.saveAll(users);
