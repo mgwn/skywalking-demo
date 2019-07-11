@@ -1,0 +1,32 @@
+
+server:
+  port: 9080
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: mock
+          uri: http://localhost:9082
+          predicates:
+            - Path=/mock/**
+          filters:
+            - StripPrefix=1
+        - id: demo
+          uri: http://localhost:9081
+          predicates:
+            - Path=/demo/**
+          filters:
+            - StripPrefix=1
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  level:
+    org.springframework: INFO
+    reactor.icp.netty: INFO
+    io.github.demo: DEBUG
