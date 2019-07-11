@@ -25,6 +25,10 @@ spotless {
 	}
 }
 
+bootRun {
+	jvmArgs = ["-Dskywalking.agent.service_name=gateway", "-javaagent:$projectDir/agent/skywalking-agent.jar"]
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.cloud:spring-cloud-starter-gateway'

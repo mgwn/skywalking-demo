@@ -25,6 +25,10 @@ spotless {
 	}
 }
 
+bootRun {
+	jvmArgs = ["-Dskywalking.agent.service_name=demo-service", "-javaagent:$projectDir/agent/skywalking-agent.jar"]
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'

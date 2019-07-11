@@ -9,6 +9,22 @@
 ## Run Middleware in docker
 [docker-compose](./docker-compose/README.md)
 
+## Download java agent
+* http://skywalking.apache.org/downloads/
+* Copy the `agent` to project root path
+
+## Config 
+* For `gateway`, Move `apm-spring-cloud-gateway-2.x-plugin` from `optional-plugins` to `plugins`
+
+## Enable agent
+For gradle as an example
+```gradle
+bootRun {
+	jvmArgs = ["-Dskywalking.agent.service_name=gateway", "-javaagent:$projectDir/agent/skywalking-agent.jar"]
+}
+```
+* `skywalking.agent.service_name` should be same as service name in `application.yml` to avoid some issues.
+
 ## Run services
 ```bash
 gradle :gateway:bootRun
