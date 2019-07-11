@@ -1,0 +1,7 @@
+version: '3.3'
+services:
+  oap:
+    image: holomekc/wiremock-gui
+    restart: always
+    ports:
+      - 9082:8080
