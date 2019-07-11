@@ -9,6 +9,22 @@
 ## Run Middleware in docker
 [docker-compose](./docker-compose/README.md)
 
+## Download java agent
+* http://skywalking.apache.org/downloads/
+    ```bash
+    tar xzf apache-skywalking-apm-6.2.0.tar.gz 
+    mv -f apache-skywalking-apm-bin/agent ./agent
+    rm -rf apache-skywalking-apm-bin
+    ```
+## Enable agent
+For gradle as an example
+```gradle
+bootRun {
+	jvmArgs = ["-Dskywalking.agent.service_name=gateway", "-javaagent:$projectDir/agent/skywalking-agent.jar"]
+}
+```
+* `skywalking.agent.service_name` should be same as service name in `application.yml` to avoid some issues.
+
 ## Run services
 ```bash
 gradle :gateway:bootRun
