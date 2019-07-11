@@ -15,6 +15,12 @@
 
 ## Config 
 * For `gateway`, Move `apm-spring-cloud-gateway-2.x-plugin` from `optional-plugins` to `plugins`
+* Add manually trace in code
+	* gradle
+	```gradle
+	implementation 'org.apache.skywalking:apm-toolkit-trace:6.2.0'
+	```
+	* Code: `@Trace`, `@TraceCrossThread`, `ActiveSpan`, `TraceContext`
 
 ## Enable agent
 For gradle as an example
