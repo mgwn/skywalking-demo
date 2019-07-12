@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  oap:
+  mock:
     image: holomekc/wiremock-gui
     restart: always
     ports:
